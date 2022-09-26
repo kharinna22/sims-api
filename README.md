@@ -1,4 +1,4 @@
-# sims-api
+# Sims-API
 API desarrollada como proyecto ASP.NET Core Web API (.NET 6) con C#.
 
 ## Modelo Sims
