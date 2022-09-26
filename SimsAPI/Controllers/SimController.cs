@@ -37,7 +37,7 @@ namespace SimsAPI.Controllers
             return Ok(sim);
         }
 
-        // Agrega un nuevo sim
+        // Agrega un nuevo sim a la BD
         [HttpPost]
         public async Task<IActionResult> AddSim(AddSimRequest sim)
         {
