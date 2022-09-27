@@ -1,5 +1,5 @@
 # Sims-API
-API desarrollada como proyecto ASP.NET Core Web API (.NET 6) con C#, utiliza Entity Framework Core (Client-First).
+API desarrollada como proyecto ASP.NET Core Web API (.NET 6) con C#, utiliza Entity Framework Core Code First.
 
 ## Modelo Sims
 - Id
