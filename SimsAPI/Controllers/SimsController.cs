@@ -8,11 +8,11 @@ namespace SimsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SimController : ControllerBase
+    public class SimsController : ControllerBase
     {
 
         private readonly DataContext _context;
-        public SimController(DataContext context)
+        public SimsController(DataContext context)
         {
             _context = context;
         }
