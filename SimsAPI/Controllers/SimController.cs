@@ -6,13 +6,13 @@ using SimsAPI.Models;
 
 namespace SimsAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/sims")]
     [ApiController]
-    public class SimsController : ControllerBase
+    public class SimController : ControllerBase
     {
 
         private readonly DataContext _context;
-        public SimsController(DataContext context)
+        public SimController(DataContext context)
         {
             _context = context;
         }
