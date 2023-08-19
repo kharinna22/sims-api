@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using SimsAPI.Data;
 using SimsAPI.Models;
+using System.Text;
 
 namespace SimsAPI.Controllers
 {
@@ -56,6 +58,59 @@ namespace SimsAPI.Controllers
             return Created("",await _context.Sims.ToListAsync());
         }
 
+        [HttpPost]
+        [Route("upload")]
+        public IActionResult UploadFile()
+        {
+
+            var file = Request.Form.Files[0];
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No se ha enviado ningún archivo");
+            }
+
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                // Aquí puedes realizar el procesamiento deseado con el archivo CSV
+                // Por ejemplo, leer los datos del archivo y realizar operaciones
+
+                // Ejemplo: Leer las líneas del archivo CSV
+                var csvData = reader.ReadToEnd();
+                // Aquí puedes procesar los datos como desees
+
+                return Ok("Archivo CSV recibido correctamente");
+            }
+        }
+
+        private readonly List<DataItem> _dataItems = new List<DataItem>
+        {
+            new DataItem { Id = 1, Name = "John Doe", Age = 30 },
+            new DataItem { Id = 2, Name = "Jane Smith", Age = 25 },
+            // Add more data items as needed
+        };
+
+        [HttpGet]
+        [Route("getcsv")]
+        public IActionResult GetCsv()
+        {
+            // Create the CSV content
+            var csvContent = new StringBuilder();
+            csvContent.AppendLine("Id,Name,Age");
+
+            foreach (var dataItem in _dataItems)
+            {
+                csvContent.AppendLine($"{dataItem.Id},{dataItem.Name},{dataItem.Age}");
+            }
+
+            // Set the response headers
+            var bytes = Encoding.UTF8.GetBytes(csvContent.ToString());
+            var result = new FileContentResult(bytes, "text/csv")
+            {
+                FileDownloadName = "data.csv"
+            };
+
+            return result;
+        }
 
         // Edita un sim 
         [HttpPut]
@@ -94,5 +149,12 @@ namespace SimsAPI.Controllers
             return Ok(await _context.Sims.ToListAsync());
         }
 
+    }
+
+    public class DataItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 }
